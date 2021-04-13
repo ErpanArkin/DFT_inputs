@@ -1,0 +1,14 @@
+ISYM = 0      # no symmetry
+ISPIN = 2     # allow for spin polarisation
+VOSKOWN = 1   # this is important, in particular for GGA
+               # but not required for PBE potentials
+ISMEAR = 0    # Gaussian smearing, otherwise negative occupancies might come up
+SIGMA = 0.002 # tiny smearing width to safely break symmetry
+AMIX = 0.2    # mixing set manually
+BMIX = 0.0001  
+NELM = 100    # often many steps are required
+ICHARG = 1
+LDIAG = .FALSE.
+ALGO = D ; LSUBROT = .FALSE. ; NELM = 500 ; TIME = 0.2
+!NUPDOWN = 3  ! magnetic moment
+NPAR = 4

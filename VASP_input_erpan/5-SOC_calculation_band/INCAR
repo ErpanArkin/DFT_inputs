@@ -1,0 +1,72 @@
+ SYSTEM = Geometry-Relaxation
+
+
+SGI parameters:
+   LPLANE = T  
+   NSIM = 1
+   NPAR = 4
+
+Starting parameter: 
+
+   ISTART = 0 
+                      !0, starts from scratch and initializes the orbitals according to the flag INIWAV.
+                      !1, restart with constant energy cut-off''.Continuation job -- read orbitals from file WAVECAR
+                      !2, restart with constant basis set': Continuation job -- read orbitals from the file WAVECAR
+   ICHARG = 11
+                      !0,  'initial' charge density calculate  from initial orbitals.
+                      !1, Read the charge density from file CHGCAR , and extrapolate from the old positions (on    CHCGAR) to the new positions using a linear combination of !atomic charge densities.
+                      !2, Take superposition of atomic charge densities
+                      !+10, Adding ten to the value of ICHARG (e.g. using 11,12 or the less convenient value 10) means that the charge density will be kept constant during !the whole electronic minimization.
+                      !11, To obtain the eigenvalues (for band structure plots) or the DOS for a given charge density read from CHGCAR. 
+                      !12, Non-selfconsistent calculations for a superposition of atomic charge densities.  
+
+Electronic Relaxation
+
+   ENCUT  =   500     eV(29.4 Ryd)
+                      !default: largest ENMAX from POTCAR-file
+                      !Cut-off energy for plane wave basis set in eV
+                      !more than one species, the maximum cutoff (ENMAX or ENMIN) value is used from POTCAR
+   EDIFF  =   1E-05   !default: 1E-4, Specifies the global break condition for the electronic SC-loop
+   ALGO   =   Fast    !electronic minimisation algorithm
+                      !ALGO = Normal IALGO = 38 (blocked Davidson iteration scheme)
+                      !ALGO = Very_Fast IALGO = 48 (RMM-DIIS). 
+                      !ALGO = Fast. mixture of both algorithm
+                      !ALGO = Exact or ALGO = Diag (both IALGO = 90), an exact diagonalization
+                      !ALGO = Eigenval (IALGO = 3) e.g. read from WAVECAR, allows to recalculate one electron energies, density of state and perform selected postprocessing using the current orbitals  
+                      !ALGO = None or ALGO = Nothing (IALGO = 2) e.g. read from WAVECAR, allows to recalculate the density of states (eigenvalues from WAVECAR, e.g. !using different smearing or tetrahedron method) or perform other selected postprocessing using the current orbitals and one electron energies 
+   LORBIT =   11      !default 0, If the LORBIT flag is not equal zero, the site and l-projected density of states is also calculated.
+                      !partial DOS projected onto molecular orbitals, creates PROCAR
+                      !(LORBIT=1, 2) projecting the orbitals onto spherical harmonics that are non-zero within spheres of a radius RWIGS                          around each ion 
+                      !(LORBIT=10,11,12) a quick projection scheme works only for the PAW method .
+
+
+Ionic Relaxation
+   ISPIN  =    2      !spin polarized calculations
+   NSW    =    0      !max number of ionic relaxation steps
+   IBRION =   -1      !determines how the ions are updated and moved. 0-MD, 2-CG
+   ISIF   =    2      !2 don't change cell shape and volume
+                      !3 change both
+                      !4 only change shape
+   ISYM   =    0      !0-off, 2-on. symmetry analysis for Bravais lattice, point group symmetry etc.
+   IWAVPR =    1      !1-CG and 2-must for MD, extrapolation
+     
+   ISMEAR  =   0  
+
+
+   SIGMA   =  0.01
+
+   LWAVE  =  .False.  !wavecar
+   LCHARG =  .True.  !chgcar
+   LAECHG =  .False.   !for BADER
+   LVTOT = .False.   !generates a file LOCPOT for local potential. WORKFUNCTION can be calculated
+   LVDW   =  .False.  !van der waals
+
+
+   
+!spin orbit calculation   
+   LSORBIT    =  .TRUE.
+   LMAXMIX    =  4  ! 2 for s p, 4 for d and 6 for f   ! you need to set LMAXMIX already in the collinear calculation
+   SAXIS      =  0 0 1   ! direction of the magnetic field
+   NBANDS     =  40 !number of bands of collinear run
+   GGA_COMPAT =  .FALSE. ! apply spherical cutoff on gradient field
+

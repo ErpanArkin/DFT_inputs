@@ -1,0 +1,50 @@
+
+ SYSTEM = Geometry-Relaxation
+
+ Startparameter for this Run:
+   NWRITE =      2;   LPETIM=F    write-flag & timer
+   ISTART =      0    job   : 0-new  1-cont  2-samecut
+
+sgi parameters
+   LPLANE = T
+   NSIM   = 1
+   LORBIT = 11 
+
+ Electronic Relaxation 1
+   ENCUT  = 500   eV(29.4 Ryd)
+   NELM   =   150  number of electronic steps between two ionic steps
+   EDIFF  =   1E-05   stopping-criterion for ELM
+
+ Ionic Relaxation
+NSW    =   0   number of steps for IOM
+IBRION =   -1   ionic relax: 0-MD 1-quasi-New 2-CG
+   NBLOCK =    1
+   KBLOCK =    1
+   ISIF   =     2    stress and relaxation
+   ISYM   =      0
+   IWAVPR =      1    prediction:  0-non 1-charg 2-wave 3-comb
+   ISPIN  = 2
+   NUPDOWN = 0
+
+
+  Mass of Ions in am
+ISMEAR  =  0  For semiconductors use the tetrahedron method (ISMEAR=-5);For relaxations in metals always use ISMEAR=1 or ISMEAR=2
+SIGMA   = 0.1
+
+
+ Electronic Relaxation 2
+   ALGO  =       Fast   algorithm
+   LDIAG  =      T    sub-space diagonalisation
+   LREAL  =     False    real-space projection
+   LELF   =      T
+
+
+
+  LAECHG = .TRUE.
+  LVHAR  = .TRUE. 
+ 
+
+
+ 
+
+  NPAR = 4

@@ -1,0 +1,15 @@
+when applying a homogeneous electric field using vasp:
+
+1) higher precision
+2) read wavecar and chgcar
+3) if the system is charged, only cubic cell can be used
+
+PREC = Med 
+ISTART = 1
+ICHARG = 1
+IBRION = 1 #if relaxation is needed
+EFIELD = 0.08           # strength of the field
+IDIPOL = 2              # direction of the field
+DIPOL = 0.5 0.5 0.5     # center of the field
+LDIPOL=.TRUE.           # should be on whether the system is charged or not
+NELECT = 497            # number of electrons for a charged system

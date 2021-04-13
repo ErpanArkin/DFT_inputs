@@ -1,0 +1,21 @@
+Table S1 – Most important input parameters used for the magnetic molecular dynamic
+simulations performed on the Nd2NiO4.0 system.
+ALGO = V ISYM = 0 ISTART = 0
+MAXMIX = 40 ISIF = 2 ISMEAR = 0
+IBRION = 0 SMASS = 1 SIGMA = 0.05
+NSW = 21000 LREAL = .TRUE. ISPIN = 2
+NBLOCK = 1 LCHARG = .TRUE. ICHARG = 2
+POTIM = 1 NELMIN = 4 MAGMOM = 64*0.0 2.0 2.0
+2.0 2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -
+2.0 -2.0 -2.0 2.0 2.0 2.0 2.0
+32*0.0
+TEBEG = 300 PREC = ACCURATE
+Table S2 – Most important input parameters used for the molecular dynamic simulations
+performed on the Nd2NiO4+d system. The only variable is TEBEG, the simulation
+temperature.
+ALGO = V POTIM = 2 LCHARG = .FALSE.
+MAXMIX = 40 TEBEG = 300 PREC = LOW
+IBRION = 0 ISYM = 0 ISTART = 0
+NSW = 21000 ISIF = 2 ISMEAR = 0
+NELMIN = 4 SMASS = 2 SIGMA = 0.05
+NBLOCK = 1 LREAL = .TRUE.

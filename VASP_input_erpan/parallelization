@@ -1,0 +1,19 @@
+ follow the total # cores = # atom, # atom inverse to # cores per node.
+ If not enough memory, decrease the # cores per node
+ always set ncore to # cores per node
+
+
+ kpar npar
+
+    steps conf.             AveRSS     AveVMSize
+   13 6/OSZICAR            181656192  2207600373
+   27 12/OSZICAR           117514798  2142575718
+   34 15/OSZICAR           121951542  2082917963
+   33 24/OSZICAR           100483973  2001929250
+   32 30/OSZICAR           95510756   2005995417
+   29 60/OSZICAR           65632542   1942323008
+   30 only_kpar_10/OSZICAR 1039536293 6766192107
+   82 10n-10k              584790270  2957947146
+
+
+using KPAR certainly increase the speed, but it cost a lot of memory: more kpar faster but large memory, 15 NCORE is optimal for this system.

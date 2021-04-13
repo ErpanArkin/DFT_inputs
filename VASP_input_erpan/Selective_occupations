@@ -1,0 +1,6 @@
+select the bands to be occupied; the number can be larger than the nband in vasp, and the extra will be ignored
+
+
+  ISMEAR  =   -2
+   FERWE = 25*1.0 9*0.0 1.0 100*0.0
+   FERDO = 25*1.0 100*0.0

@@ -1,0 +1,4 @@
+b=$(pwd);for x in $(find -type d -name "hse-geo"); do cd $x; echo $x; cp ../../HSE_kps .; mkdir hse-bands; cp {INCAR,POTCAR,CONTCAR5} hse-bands/; cp ../../script.sh hse-bands/;mv hse-bands/CONTCAR5 hse-bands/POSCAR; cp ../IBZKPT hse-bands/KP; cat HSE_kps >> hse-bands/KP;awk 'NR ==2 {$1=$1+68}1' hse-bands/KP > hse-bands/KPOINTS; sed -i '/NSW/s/300/0/g' hse-bands/INCAR; sed -i '/NKREDX/s/NKREDX/!NKREDX/g' hse-bands/INCAR; sed -i '/NKREDY/s/NKREDY/!NKREDY/g' hse-bands/INCAR; sed -i '/NKREDZ/s/NKREDZ/!NKREDZ/g' hse-bands/INCAR; sed -i '/PRECFOCK/s/Fast/Normal/g' hse-bands/INCAR;rm -f hse-bands/KP;cd $b; done
+
+
+b=$(pwd);for x in */; do cd $x; echo $x; cp ../HSE_kps .; mkdir bands; cp {INCAR,POTCAR,CONTCAR} bands/; cp ../script.sh bands/;mv bands/CONTCAR bands/POSCAR; cp IBZKPT bands/KP; cat HSE_kps >> bands/KP;awk 'NR ==2 {$1=$1+68}1' bands/KP > bands/KPOINTS; sed -i '/NSW/s/300/0/g' bands/INCAR; rm -f bands/KP;cd $b; done

@@ -1,0 +1,80 @@
+
+%include POS_GS8Li.fdf
+MD.UseSaveXV            T
+
+%block PAO.BasisSizes
+   C           DZP
+   Li           DZP
+%endblock PAO.BasisSizes
+
+xc.functional           GGA                #GGA   #LDA
+xc.authors              PBE                #PBE   #CA
+
+MeshCutoff              300.00000000 Ry 
+SolutionMethod          diagon                   
+ElectronicTemperature   300 K                    
+
+NetCharge               -0.1
+SpinPolarized           F
+FixSpin                 F                        
+
+# SCF options
+MaxSCFIterations       500          # Maximum number of SCF iter
+DM.MixingWeight       0.1           # New DM amount for next SCF cycle
+DM.NumberPulay         7
+DM.Tolerance          1.d-3         # Tolerance in maximum difference
+                                    # between input and output DM
+DM.UseSaveDM             T          # to use continuation files
+                    
+# MD options
+
+MD.TypeOfRun           cg           # Type of dynamics:
+MD.Steps               0          # Number of MD steps for 
+                                    #   coordinate optimization
+MD.MaxForceTol         0.04 eV/Ang  # Tolerance in the maximum 
+                                    #   atomic force (Ry/Bohr)
+MD.VariableCell        F   
+MD.ConstantVolume       T   
+MD.TargetPressure        0.001 GPa
+MD.MaxStressTol 0.1 GPa
+
+%block kgrid_Monkhorst_Pack
+  5   0   0     0.0
+  0   5   0     0.0
+  0   0   1     0.0
+%endblock kgrid_Monkhorst_Pack
+
+%block ProjectedDensityOfStates
+-10.00 10.00 0.100 500 eV
+%endblock ProjectedDensityOfStates
+
+# %block WaveFuncKPoints
+# 0.000 0.000 0.000 from 1 to 1 # gamma func, from HOMO-xx to LUMO+xx
+# %endblock WavefuncKPoints
+
+CDFT                    T
+ CDFT.MaxIter            50
+ CDFT.MaxPotStep         0.25 eV
+ CDFT.PopTolerance       0.01
+ CDFT.UseSaveVC          T 
+ CDFT.Projection         Mulliken # Mulliken or Lowdin    
+
+ %block CDFT.ConstraintGroups
+ group  Li   from 99 to 99
+ %endblock CDFT.ConstraintGroups
+ 
+ ## charge #depth # #
+ %block CDFT.TargetAndPoteV
+ Li  0.0  0.0      0.0  0.0
+ %endblock CDFT.TargetAndPoteV
+
+
+WriteMullikenPop                   1
+SaveElectrostaticPotential         T # local pseudopotential + Hartree: .VH
+SaveTotalPotential                 T # local pseudopotential + Hartree + Vxc: .VT
+WriteMDhistory                     T # trajectory .MD; traj info: .MDE
+SaveRho                            T # valence pseudocharge: .RHO
+SaveBaderCharge                    T # valence + core charge .BADER
+WriteCoorXmol                      T # write xyz file
+WriteDM                            T # density matrix, large system file is too large
+WriteMDXmol                        T # trajectory: .xyz
