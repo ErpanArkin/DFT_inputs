@@ -1,0 +1,4 @@
+submit dependent jobs
+two scripts may be different
+
+j=11302896;for i in `seq 50`; do j=$(sbatch -d afterany:"$j" script_dep.sh | awk '{print $NF}');done

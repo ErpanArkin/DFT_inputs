@@ -1,0 +1,20 @@
+#!/bin/bash
+
+for i in `squeue -u yaierken | awk 'NR>1{print $1}'`; do 
+scontrol show job $i | grep 'RunTime\|StartTime\|WorkDir'; echo "";
+
+running=`scontrol show job $i | grep 'StdOut'`
+
+echo "${running:10}" >> find_slurm.dat
+done
+
+squeue -u yaierken
+
+if [ -s find_slurm.dat ]
+then 
+   find {$SCRATCH/,$ETNA/Projects/,$VULCAN/Projects/} -name "slurm*.out" | grep -vf find_slurm.dat | xargs ls -rt
+   rm find_slurm.dat
+else
+   find {$SCRATCH/,$ETNA/Projects/,$VULCAN/Projects/} -name "slurm*.out" | xargs ls -rt
+fi
+
